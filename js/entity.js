@@ -1187,6 +1187,9 @@ Entity.prototype.Update = function(step) {
 		this.PregnancyOverTime(hours);
 		this.HandleDrunknessOverTime(hours);
 		
+
+		this.HandleCumLeaking(hours);
+
 		for(var i = 0; i < this.effects.length; i++)
 			this.effects[i].timer.Dec(step);
 	}
@@ -1245,6 +1248,16 @@ Entity.prototype.PregnancyOverTime = function(hours) {
 Entity.prototype.PregnancyTrigger = function(womb, slot) {
 	//TODO: Implement for each entity. Default to do nothing.
 	//Optional slot: PregnancyHandler.Slot
+}
+
+Entity.prototype.HandleCumLeaking = function(hours) {
+	for(var i=0; i < this.body.vagina.length; i++) {
+	  if (this.body.vagina[i].cumfilled > 0) {
+	    this.body.vagina[i].cumfilled -= 1;
+	  } else {
+	    this.body.vagina[i].cumfilled = 0;
+	  }
+	}
 }
 
 DrunkLevel = {
@@ -1546,7 +1559,10 @@ Entity.prototype.FuckVag = function(vag, cock, expMult) {
 	}
 	else
 		this.AddSexExp(expMult);
-	
+
+	// add cum to vagina	
+	vag.cumfilled += 10;
+
 	// TODO: Stretch
 }
 
@@ -2315,7 +2331,13 @@ Entity.prototype.PrintDescription = function() {
 	if(vags.length == 1) {
 		var vag = vags[0];
 		var vagDesc = vag.Desc();
-		Text.Add("[name] [has] " + vagDesc.a + " " + vagDesc.adj + " " + vag.noun() + ".", parse);
+		console.log(vag);
+		Text.Add("[name] [has] " + vagDesc.a + " " + vagDesc.adj + " " + vag.noun(), parse);
+		if (vag.cumfilled > 0.0) {
+		  Text.Add(", dribbling cum.");
+		} else {
+		  Text.Add(".");
+		}
 	}
 	else if(vags.length > 1) {
 		var vag = vags[0];

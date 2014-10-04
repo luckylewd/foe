@@ -126,6 +126,22 @@ Player.prototype.Magic = function() {
 	return gameCache.flags["LearnedMagic"] != 0;
 }
 
+Player.prototype.HandleCumLeaking = function(hours) {
+  for(var i=0; i < this.body.vagina.length; i++) {
+    if (this.body.vagina[i].cumfilled > 0) {
+      this.body.vagina[i].cumfilled -= 1;
+      var vag = this.body.vagina[i];
+      var vagDesc = vag.Desc();
+      Text.NL();
+      Text.Add("You feel cum leaking from your " + vagDesc.adj + " " + vag.noun());
+      Text.Flush();
+    } else {
+      this.body.vagina[i].cumfilled = 0;
+    }
+  }
+}
+
+
 Player.prototype.HandleDrunknessOverTime = function(hours, suppressText) {
 	var oldLevel = this.drunkLevel;
 	this.drunkLevel -= this.DrunkRecoveryRate() * hours;

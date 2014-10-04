@@ -822,6 +822,8 @@ function Vagina() {
 	this.womb          = new Womb();
 	
 	this.virgin        = true;
+
+	this.cumfilled	   = 0;
 }
 Vagina.prototype.Pregnant = function() {
 	return this.womb.pregnant;
