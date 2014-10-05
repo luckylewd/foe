@@ -552,6 +552,7 @@ Scenes.Equine.Threesome2 = function(enc) {
 	Text.AddOutput("With the meticulous pleasure centered on the female it'd be foolish to think she could last very long. She clamps down around the bestial shaft inside of her, squirting cum over you and the stallion. You give a few triumphant rubs to her sensitive bud and remove your saliva covered fingers from her mouth.", parse);
 	Text.Newline();
 	Text.AddOutput("The stallion suddenly pulls out of the mare and for a moment you are unsure of what he's doing. Before you think of pushing the mare out of the way, you feel a cool shot hit your sore slit and several more following up. The stallion softly stroked himself to orgasm over both of your pussies, covering both in his potent seed. You and the mare have the same idea, and begin stuffing the semen into each other's cunts.", parse);
+	player.CumInVag(player.FirstVag(), enc.stallion.FirstCock(), 5);
 	Text.Newline();
 	Text.AddOutput("Despite having quite a fun time, you and the equines part ways.", parse);
 	if(!party.Alone())

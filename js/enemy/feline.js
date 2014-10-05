@@ -1427,6 +1427,7 @@ Scenes.Felines.LossCatchVaginal = function(cat, group, enc) {
 	var options = new Array();
 	options.push({ nameStr : "Inside",
 		func : function() {
+			player.CumInVag(player.FirstVag(), cat.FirstCock(), 10);
 			Text.Clear();
 			Text.Add("<i>”I’m so glad to hear you say this, my darling. I’ll make sure to shoot as deep inside you as I can,”</i> [heshe] says, smiling as [heshe] redoubles [hisher] efforts to thrust into you.", parse);
 			Text.NL();
@@ -1486,6 +1487,11 @@ Scenes.Felines.LossCatchVaginal = function(cat, group, enc) {
 			parse["tail"]  = player.HasTail() ? Text.Parse(" [tailDesc],", parse) : "";
 			parse["wings"] = player.HasWings() ? Text.Parse(" [wingDesc],", parse) : "";
 			Text.Add("With a yowl of satisfaction, [name] cums. Strands of white fly through the air to settle all over your [buttDesc],[tail] back,[wings] and [hair]. This is one messy kitty, you think to yourself as a few more strands of warmth fall upon your prone form.", parse);
+
+			player.body.head.hair.AddCoating("cat cum", 20);
+			player.body.torso.AddCoating("cat cum", 20);
+			player.body.ass.AddCoating("cat cum", 20);
+
 			Text.NL();
 			Text.Add("You groan in frustration, feeling your own need throbbing down below. You're so close, but you can't manage to climb the edge on your own... As your [vagDesc] flexes in frustration, you feel something warm and wet glide suddenly across your [buttDesc]. [Name] is licking you!", parse);
 			Text.NL();

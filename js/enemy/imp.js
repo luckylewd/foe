@@ -284,8 +284,10 @@ Intro.ImpsWinUseFemale = function() {
 			Text.AddOutput("<b>THE SLUT CAN'T WAIT TO GET FUCKED, ASK AND YE SHALL RECEIVE,</b> the amused voice of the demon rolls over you. <i>\"F-fuuuck!\"</i> you groan as the imp somehow bottoms out in your butt, filling you completely. Even while growing, the imp does not slow one bit, continuing to rail you like there is no tomorrow.", parse);
 			Text.Newline();
 			Text.AddOutput("Pain slowly gives way to pleasure as the imp repeatedly hilts his impaler in your guts, stretching you to your limit. With a high-pitched yelp, the imp unloads inside you, painting your back passage white with unnatural amounts of warm spunk. It seemed the cursed demon increased his capacity too!", parse);
+			player.CumInAss(player.Butt(), imp.FirstCock(), 10);
 			Text.Newline();
 			Text.AddOutput("You have other things to worry about, however, as the copious amounts of sperm being deposited inside you finally push you over the edge. Your arms give way, and you fall forward exhausted, dislodging the still shooting cock from your rear. Several generous servings of hot semen splatter over your back, until the imp finally gives up and drops on his back, blacked out from the biggest orgasm in his life.", parse);
+			player.CumInAss(player.Butt(), imp.FirstCock(), 20);
 			Text.Newline();
 			Text.AddOutput("Sore, you massage your aching and leaking butt, grumbling a bit about those damned demons.", parse);
 			Gui.NextPrompt(Intro.DemonGift);
@@ -360,6 +362,7 @@ Intro.ImpsWinRideEntrypoint = function() {
 		Text.AddOutput(" Even untouched, your [cuntDesc] is flowing with feminine juices, itching for release.", parse);
 	Text.Newline();
 	Text.AddOutput("A slight twitch and a loud yelp is all the warning you get before your ass is flooded with hot imp-sperm. Shuddering, you collapse on top of your diminutive lover, ");
+	player.CumInAss(player.Butt(), imp.FirstCock(), 20);
 	if(player.FirstCock())
 		Text.AddOutput("your own [cockDesc] unloading across his stomach.", parse);
 	else
@@ -426,6 +429,7 @@ Intro.ImpsWinGroup = function() {
 		
 	Text.Newline();
 	Text.AddOutput("The two imps sharing your [anusDesc] change their rhythm subtly, so that. instead of alternating, they are thrusting into you at the same time. Thankfully, they do not last long, soon pouring their corrupted seed into your stomach.", parse);
+	player.CumInAss(player.Butt(), imp.FirstCock(), 50);
 	Text.Newline();
 	Text.AddOutput("To top off your little orgy, the remaining imps gather around you, jerking themselves off and covering every part of you in white, sticky fluids. It would probably be best to get cleaned up before moving on.", parse);
 	
@@ -539,6 +543,7 @@ Intro.ImpsLossFucked = function() {
 		
 	Text.Newline();
 	Text.AddOutput("The imp is done sooner than you would have liked, basting your insides with sticky seminal fluids, but he is quickly replaced by another, picking up where the first left off. One after the other, the imps have a go at your poor [anusDesc], reaming you into a whimpering mess.", parse);
+	player.CumInAss(player.Butt(), imp.FirstCock(), 80);
 	Text.Newline();
 	Text.AddOutput("<i>\"Hey, look what the boss gave me!\"</i> you dimly hear one of the imps exclaim. There is a bit of a shuffle behind you and your ass is momentarily free of imp cock, only to be stuffed with what feels like a battering ram. Damn demon! It seems like he at least doubled the length and girth of the imp's cock!", parse);
 	Text.Newline();

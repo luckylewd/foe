@@ -944,6 +944,7 @@ Scenes.Lagomorph.GroupWinOnPlainsFuckM = function(enc, group) {
 					Text.Add("Hey, this is all [himher], you just told [himher] to come over, remember?", parse);
 					Text.NL();
 					Text.Add("<i>”You are horrible,”</i> [heshe] complains, wincing as the enraptured bunny arches his back and blows his load inside you. Sneaking a peek over his shoulder, you notice that the elf is still working the lagomorph’s prostate, probing his butt with two digits.", parse);
+					player.CumInVag(player.FirstVag(), male.FirstCock(), 10);
 				}
 				Text.NL();
 				Text.Add("You commend the elf for doing a good job, and get back to your rutting.", parse);
@@ -974,6 +975,7 @@ Scenes.Lagomorph.GroupWinOnPlainsFuckM = function(enc, group) {
 		// COMPANION SECTION END
 		
 		Text.Add("Things start melding together as the entire group deteriorates into an all out orgy. You make sure to split your attentions between the various lagomorphs, but one quickly becomes interchangeable with the next, a huge pile of horny creatures eager to be your next target.", parse);
+		player.CumInVag(player.FirstVag(), male.FirstCock(), 20);
 		Text.NL();
 		Text.Add("Time passes...", parse);
 		Text.Flush();
@@ -1093,6 +1095,7 @@ Scenes.Lagomorph.GroupWinOnPlainsGetFuckedM = function(enc, group) {
 	if(target == BodyPartType.vagina) {
 		Sex.Vaginal(male, player);
 		player.FuckVag(player.FirstVag(), male.FirstCock(), 3);
+		player.CumInVag(player.FirstVag(), male.FirstCock(), 20);
 		male.Fuck(male.FirstCock(), 3);
 		
 		Text.Add("The bunny bucks, pistoning his meat into your wet cleft at a blinding pace. His hips must look like a blur, judging by the speed that he’s fucking you. The lagomorph doesn’t only go for speed either, each thrust is deep enough to drive the breath from your lungs - if your airways weren’t already plugged with cock, that is. Overrun by his urge to breed, it feels like he’s trying to drill all the way into your womb.", parse);
@@ -1100,6 +1103,7 @@ Scenes.Lagomorph.GroupWinOnPlainsGetFuckedM = function(enc, group) {
 	else {
 		Sex.Anal(male, player);
 		player.FuckAnal(player.Butt(), male.FirstCock(), 3);
+		player.CumInAss(player.Butt(), male.FirstCock(), 20);
 		male.Fuck(male.FirstCock(), 3);
 		
 		Text.Add("Eager to spend his seed, the bunny rapidly bucks his hips, pummeling your asshole. His breeding instinct might be a bit misguided, but you suspect he’s willing to fuck just about anything that moves if it gives him release. He’s sure as hell doing his damndest to get that butt of yours pregnant.", parse);
@@ -1108,6 +1112,15 @@ Scenes.Lagomorph.GroupWinOnPlainsGetFuckedM = function(enc, group) {
 	Text.Add("It’s not long before he shoots his load, pouring thick wads of hot seed into your [targetDesc]. You don’t really have a chance to be disappointed at his short fuse, as his cock is quickly replaced by another one… and there is a lot more to go around.", parse);
 	Text.NL();
 	Text.Add("You are distracted from the amazing feeling in your groin by your other two friends unloading their balls in your mouth and all over your [faceDesc]. Spurt after spurt of thick rabbit cum slide down your throat, or is deposited in long glistening strands on your body, dripping down on your [breastDesc].", parse);
+
+	player.body.ass.AddCoating("rabbit cum", 20);
+	player.body.arms.AddCoating("rabbit cum", 20);
+	player.body.legs.AddCoating("rabbit cum", 20);
+	player.body.torso.AddCoating("rabbit cum", 20);
+	player.body.head.AddCoating("rabbit cum", 20);
+	player.body.head.hair.AddCoating("rabbit cum", 20);
+	player.body.breasts[0].AddCoating("rabbit cum", 20);
+
 	Text.NL();
 	Text.Add("Despite you already being covered both inside and out in bunny semen, your fluffy suitors show little sign of tiring, taking turns at plugging every hole they can get their paws on. You can’t help but succumb to them, riding your pleasure high as they use you.", parse);
 	if(player.FirstCock()) {
@@ -1120,10 +1133,12 @@ Scenes.Lagomorph.GroupWinOnPlainsGetFuckedM = function(enc, group) {
 	if(player.FirstVag()) {
 		Sex.Vaginal(male, player);
 		player.FuckVag(player.FirstVag(), male.FirstCock(), 2);
+		player.CumInVag(player.FirstVag(), male.FirstCock(), 20);
 		male.Fuck(male.FirstCock(), 2);
 	}
 	Sex.Anal(male, player);
 	player.FuckAnal(player.Butt(), male.FirstCock(), 2);
+	player.CumInAss(player.Butt(), male.FirstCock(), 20);
 	male.Fuck(male.FirstCock(), 2);
 	
 	// COMPANION SECTION BEGIN
@@ -1167,6 +1182,7 @@ Scenes.Lagomorph.GroupWinOnPlainsGetFuckedM = function(enc, group) {
 			
 			Sex.Anal(male, kiakai);
 			kiakai.FuckAnal(kiakai.Butt(), male.FirstCock(), 3);
+			kiakai.CumInAss(kiakai.Butt(), male.FirstCock(), 10);
 			male.Fuck(male.FirstCock(), 3);
 			
 			kiakai.slut.IncreaseStat(60, 3);
@@ -1194,6 +1210,14 @@ Scenes.Lagomorph.GroupWinOnPlainsGetFuckedM = function(enc, group) {
 			kiakai.FuckOral(kiakai.Mouth(), male.FirstCock(), 2);
 			male.Fuck(male.FirstCock(), 2);
 			
+			kiakai.body.ass.AddCoating("rabbit cum", 20);
+			kiakai.body.arms.AddCoating("rabbit cum", 20);
+			kiakai.body.legs.AddCoating("rabbit cum", 20);
+			kiakai.body.torso.AddCoating("rabbit cum", 20);
+			kiakai.body.head.AddCoating("rabbit cum", 20);
+			kiakai.body.head.hair.AddCoating("rabbit cum", 20);
+			kiakai.body.breasts[0].AddCoating("rabbit cum", 20);
+
 			Text.Add("[name] seems to be putting up quite a performance… perhaps you can convince [himher] to offer you similar services, or maybe to take it a step further next time…", parse);
 			
 			kiakai.slut.IncreaseStat(40, 1);

@@ -252,6 +252,44 @@ function BodyPart(race, color) {
 	color      = color || Color.white;
 	this.race  = race;
 	this.color = color;
+
+	// coating
+	// Object to store the name of the coating, eg mud/cum/blood
+	this.coating = {}
+	// Is the bodypart external
+	this.external = false;
+}
+
+// Adds a coating to the body part
+BodyPart.prototype.AddCoating = function(name, qty) {
+  if(!this.coating[name]) {
+    this.coating[name] = 0;
+  }
+  this.coating[name] += qty;
+}
+BodyPart.prototype.CoatingDesc = function() {
+  var names = []
+  for(var name in this.coating) {
+    if(this.coating.hasOwnProperty(name)) {
+      names.push(name);
+    }
+  }
+
+  if(names.length === 0) {
+    return "";
+  }
+  if(names.length === 1) {
+    return names[0];
+  }
+  if(names.length === 2) {
+    return "mixture of " + names[0] + " and " + names[1];
+  }
+
+  return ""
+}
+
+BodyPart.prototype.Clean = function() {
+  this.coating = {};
 }
 
 BodyPartType = {
@@ -287,6 +325,8 @@ function Body(ent) {
 		tongue       : new BodyPart(),
 		tongueLength : new Stat(7)
 	}
+	this.head.mouth.prototype = new BodyPart();
+
 	this.head.hair = new Hair();
 	this.head.eyes = new BodyPart();
 	this.head.eyes.count = new Stat(2);
@@ -823,7 +863,7 @@ function Vagina() {
 	
 	this.virgin        = true;
 
-	this.cumfilled	   = 0;
+	this.cumfilled	   = {};
 }
 Vagina.prototype.Pregnant = function() {
 	return this.womb.pregnant;
@@ -832,6 +872,14 @@ Vagina.prototype.Pregnant = function() {
 Vagina.prototype.Fits = function(cock, extension) {
 	extension = extension || 0;
 	return cock.length.Get() <= (this.capacity.Get() + extension);
+}
+
+Vagina.prototype.Clean = function() {
+  for(var cumtype in this.cumfilled) {
+    if(this.cumfilled.hasOwnProperty(cumtype)) {
+      this.cumfilled[cumtype] = 0;
+    }
+  }
 }
 
 // Create a clitcock from a vagina
@@ -965,6 +1013,7 @@ Hair.prototype.Long = function() {
 }
 
 function Butt() {
+	BodyPart.call(this, null, null);
 	this.capacity = new Stat(25);
 	this.stretch  = new Stat(1);
 	this.buttSize = new Stat(1); // TODO: Default
@@ -973,7 +1022,20 @@ function Butt() {
 	this.womb     = new Womb();
 	
 	this.virgin   = true;
+
+	this.cumfilled	   = {};
 }
+
+Butt.prototype = new BodyPart();
+
+Butt.prototype.Clean = function() {
+  for(var cumtype in this.cumfilled) {
+    if(this.cumfilled.hasOwnProperty(cumtype)) {
+      this.cumfilled[cumtype] = 0;
+    }
+  }
+}
+
 Butt.prototype.Pregnant = function() {
 	return this.womb.pregnant;
 }
@@ -1274,6 +1336,7 @@ function Balls(race, color) {
 	this.cumCap        = new Stat(5); // Maximum cum
 	this.cum           = new Stat(0); // Current accumulated cum
 	this.fertility     = new Stat(0.3); // 0..1
+	this.CumType	   = FluidCockCum; // object constructor for type of cum this creature produces
 }
 Balls.prototype = new BodyPart();
 Balls.prototype.constructor = Balls;

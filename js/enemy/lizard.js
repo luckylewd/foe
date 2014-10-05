@@ -1118,6 +1118,7 @@ Scenes.Lizards.WinPowerbottom = function(enc) {
 										Text.NL();
 									}
 									Text.Add("He holds you there as you both climax, bucking his hips up and into you from below, pumping his sticky slime deeper into your body and letting it drool from your sloppy hole. You hold his arms tightly as he takes you for a ride, an almost drunken look on your face as you ride out your own orgasm.", parse);
+									player.CumInAss(player.Butt(), enemy.FirstCock(), 40);
 									player.AddLustFraction(-1);
 									
 									Text.NL();
@@ -1159,6 +1160,7 @@ Scenes.Lizards.WinPowerbottom = function(enc) {
 										Text.Add("You feel your [vagDesc] clench down tightly, and a heat passes through your body... Despite his heavy thrusts, it just isn't quite enough for you to reach that tantalizing threshold. You let out a needy groan, grinding back against him futilely.", parse);
 									else
 										Text.Add("As hard as he cums inside of you, you don't even come close to his pleasure. You grind yourself down onto his throbbing meat, trying to push yourself over the edge, but it's not quite enough. You bring your hands down to take hold of yourself, but his hands catch yours, holding them in place... You groan in burning need.", parse);
+									player.CumInVag(player.Butt(), enemy.FirstCock(), 40);
 								}, function() { return 1 - player.LustLevel() - (player.FirstCock() ? 0.2 : 0); });
 								
 								scenes.Get();

@@ -27,8 +27,12 @@ world.Update = function(frametime) {
 world.TimeStep = function(step) {
 	this.time.Inc(step);
 	
-	for(var i = 0; i < this.EntityStorage.length; i++)
+	for(var i = 0; i < this.EntityStorage.length; i++) {
 		if(this.EntityStorage[i].Update) this.EntityStorage[i].Update(step);
+	}
+	console.log(world);
+		
+
 }
 
 // Update function (for internal game time)

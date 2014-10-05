@@ -1251,11 +1251,44 @@ Entity.prototype.PregnancyTrigger = function(womb, slot) {
 }
 
 Entity.prototype.HandleCumLeaking = function(hours) {
+	// for each vagina
 	for(var i=0; i < this.body.vagina.length; i++) {
-	  if (this.body.vagina[i].cumfilled > 0) {
-	    this.body.vagina[i].cumfilled -= 1;
-	  } else {
-	    this.body.vagina[i].cumfilled = 0;
+	  var vag = this.body.vagina[i];
+
+	  // for each type of cum in vagina
+	  for(var type in vag.cumfilled) {
+	    if(vag.cumfilled.hasOwnProperty(type)) {
+	      // if cum exists, decrease it
+	      if (vag.cumfilled[type] > 0) {
+		vag.cumfilled[type] -= 1;
+		this.AddLustAbs(Math.random() * 20.0);
+
+		// post text
+		if(this.IsAtLocation(party.location)) {
+		  // display notification about once every 4 hours of interaction
+		  if(Math.random()*hours > 1) {
+		    Text.NL();
+		    Text.Add(this.name + " shifts uncomfortably.");
+		    Text.Flush();
+		  }
+		}
+	      } else {
+		vag.cumfilled[type] = 0;
+	      }
+	    }
+	  }
+	}
+
+	// ass
+	var ass = this.body.ass;
+	for(var type in ass) {
+	  if(ass.cumfilled.hasOwnProperty(type)) {
+	    // if cum exists, decrease it
+	    if(ass.cumfilled[type] > 0) {
+	      ass.cumfilled[type] -= 1;
+	    } else {
+	      ass.cumfilled[type] = 0;
+	    }
 	  }
 	}
 }
@@ -1543,6 +1576,7 @@ Entity.prototype.FuckAnal = function(butt, cock, expMult) {
 	else
 		this.AddSexExp(expMult);
 	
+	this.CumInAss(butt, cock, 10);
 	// TODO: Stretch
 }
 
@@ -1560,11 +1594,44 @@ Entity.prototype.FuckVag = function(vag, cock, expMult) {
 	else
 		this.AddSexExp(expMult);
 
-	// add cum to vagina	
-	vag.cumfilled += 10;
-
+	this.CumInVag(vag, cock, 10);
 	// TODO: Stretch
 }
+
+// store cummed qty in vag
+Entity.prototype.CumInVag = function(vag, cock, qty) {
+  
+  var race = "imp";
+  for(var r in Race) {
+    if(Race[r] === cock.race) {
+      race = r;
+      break;
+    }
+  }
+
+  if (!vag.cumfilled[race]) {
+    vag.cumfilled[race] = 0;
+  }
+  vag.cumfilled[race] += qty;
+}
+
+// store cummed qty in ass
+Entity.prototype.CumInAss = function(butt, cock, qty) {
+  
+  var race = "imp";
+  for(var r in Race) {
+    if(Race[r] === cock.race) {
+      race = r;
+      break;
+    }
+  }
+
+  if (!butt.cumfilled[race]) {
+    butt.cumfilled[race] = 0;
+  }
+  butt.cumfilled[race] += qty;
+}
+
 
 /*
  * New Sex functions
@@ -2196,6 +2263,7 @@ Entity.prototype.PrintDescription = function() {
 		HeShe    : this.HeShe(),
 		heshe    : this.heshe(),
 		possesive: this.possessive(),
+		Possessive: this.Possessive(),
 		height   : Math.floor(this.body.height.Get()),
 		weigth   : Math.floor(this.body.weigth.Get()),
 		race     : this.body.RaceStr(),
@@ -2225,8 +2293,20 @@ Entity.prototype.PrintDescription = function() {
 	if(this.Weapon()) Text.Add(" [HeShe] [is] wielding [weapon].", parse);
 	// TODO Body appearance, skin color
 	Text.NL();
-	Text.Add("[HeShe] [has] [faceDesc]. [HisHer] [eyeCount] [eyeColor] [eyeDesc][eyeS] observe the surroundings. ", parse);
+
+	// Coating modifier for face
+	if(this.body.head.CoatingDesc()) {
+	  Text.Add("[HeShe] [has] [faceDesc], spattered with " + this.body.head.CoatingDesc() + ". [HisHer] [eyeCount] [eyeColor] [eyeDesc][eyeS] observe the surroundings. ", parse);
+	} else {
+	  Text.Add("[HeShe] [has] [faceDesc]. [HisHer] [eyeCount] [eyeColor] [eyeDesc][eyeS] observe the surroundings. ", parse);
+	}
+
 	Text.Add("A pair of [earDesc] sticks out from [possesive] [hairDesc]. ", parse);
+
+	// Coating modifier for hair
+	if(this.body.head.hair.CoatingDesc()) {
+	  Text.Add("Thick strands of " + this.body.head.hair.CoatingDesc() + " glisten in [possesive] hair.", parse);
+	}
 	
 	for(i = 0; i < this.body.head.appendages.length; i++) {
 		var a = this.body.head.appendages[i];
@@ -2248,6 +2328,9 @@ Entity.prototype.PrintDescription = function() {
 	// TODO: Arms/Legs
 	if(this.body.legs.count == 2) {
 		Text.Add("[name] [has] arms and legs.", parse);
+		if(this.body.legs.CoatingDesc()) {
+		  Text.Add("[Possessive] legs are dripping with " + this.body.legs.CoatingDesc() + ".", parse);
+		}
 	}
 	else if(this.body.legs.count > 2) {
 		parse["num"] = Text.NumToText(this.body.legs.count);
@@ -2261,14 +2344,23 @@ Entity.prototype.PrintDescription = function() {
 	Text.NL();
 	
 	// TODO: Hips/butt
-	Text.Add("[name] [has] [hipsDesc], and [buttDesc].", parse);
+	// Coating modifier for hair
+	if(this.body.ass.CoatingDesc()) {
+	  Text.Add("[name] [has] [hipsDesc], and [buttDesc], sticky with " + this.body.ass.CoatingDesc() + ".", parse);
+	} else {
+	  Text.Add("[name] [has] [hipsDesc], and [buttDesc].", parse);
+	}
 	Text.NL();
 	
 	// TODO: Breasts
 	var breasts = this.body.breasts;
 	if(breasts.length == 1) {
 		parse.breastDesc = breasts[0].Long();
-		Text.Add("[HeShe] [has] [breastDesc].", parse);
+		if(breasts[0].CoatingDesc()) {
+		  Text.Add("[HeShe] [has] [breastDesc], coated with " + breasts[0].CoatingDesc() + ".", parse);
+		} else {
+		  Text.Add("[HeShe] [has] [breastDesc].", parse);
+		}
 	}
 	else if(breasts.length > 1) {
 		var breast = breasts[0];
@@ -2284,6 +2376,35 @@ Entity.prototype.PrintDescription = function() {
 		Text.Add("[name] have a featureless smooth chest.", parse);
 	}
 	Text.NL();
+
+	// Belly description if bloated from fluids
+	var fluidsum = 0;
+	if(this.body.vagina.length >= 1) {
+		var vag = this.body.vagina[0];
+		for(var cumtype in vag.cumfilled) {
+		  if(vag.cumfilled.hasOwnProperty(cumtype)) {
+		    fluidsum += vag.cumfilled[cumtype];
+		  }
+		}
+	}
+	var ass = this.body.ass;
+	for(var cumtype in ass.cumfilled) {
+	  if(ass.cumfilled.hasOwnProperty(cumtype)) {
+	    fluidsum += ass.cumfilled[cumtype];
+	  }
+	}
+	console.log(fluidsum);
+	if(fluidsum >= 20 && fluidsum < 50) {
+	  Text.Add("[Possessive] belly is a little bloated.", parse);
+	}
+	if(fluidsum >= 50 && fluidsum < 70) {
+	  Text.Add("[Possessive] belly is very bloated.", parse);
+	}
+	if(fluidsum >= 70) {
+	  Text.Add("[Possessive] belly is distended.", parse);
+	}
+	Text.NL();
+
 	
 	// Genetalia
 	var cocks = this.body.cock;
@@ -2331,13 +2452,18 @@ Entity.prototype.PrintDescription = function() {
 	if(vags.length == 1) {
 		var vag = vags[0];
 		var vagDesc = vag.Desc();
-		console.log(vag);
+
 		Text.Add("[name] [has] " + vagDesc.a + " " + vagDesc.adj + " " + vag.noun(), parse);
-		if (vag.cumfilled > 0.0) {
-		  Text.Add(", dribbling cum.");
-		} else {
-		  Text.Add(".");
+
+		for(var cumtype in vag.cumfilled) {
+		  if(vag.cumfilled.hasOwnProperty(cumtype)) {
+		    if (vag.cumfilled[cumtype] > 0) {
+		      Text.Add(", slick with " + cumtype + " cum (" + String(vag.cumfilled[cumtype]) + ")", parse);
+		      break;
+		    }
+		  }
 		}
+		Text.Add(".");
 	}
 	else if(vags.length > 1) {
 		var vag = vags[0];
@@ -2348,7 +2474,7 @@ Entity.prototype.PrintDescription = function() {
 	}
 	if(vags[0])
 		Text.NL();
-	
+
 	// TODO TEMP
 	var balls = this.Balls();
 	Text.Add("Cum: " + balls.cum.Get().toFixed(2) + " / " + balls.CumCap().toFixed(2));
@@ -2357,7 +2483,17 @@ Entity.prototype.PrintDescription = function() {
 	Text.NL();
 	
 	// TODO: Ass
-	Text.Add("[name] [has] [anusDesc].", parse);
+	Text.Add("[name] [has] [anusDesc]", parse);
+	var ass = this.body.ass;
+	for(var cumtype in ass.cumfilled) {
+	  if(ass.cumfilled.hasOwnProperty(cumtype)) {
+	    if (ass.cumfilled[cumtype] > 0) {
+	      Text.Add(", leaking " + cumtype + " cum");
+	      break;
+	    }
+	  }
+	}
+	Text.Add(".");
 	
 	if(DEBUG) {
 		Text.NL();
@@ -2473,4 +2609,14 @@ Entity.prototype.GetSingleTarget = function(encounter, activeChar, strategy) {
 	}
 }
 
+Entity.prototype.Clean = function () {
+  player.body.ass.Clean();
+  player.body.arms.Clean();
+  player.body.legs.Clean();
+  player.body.torso.Clean();
+  player.body.head.Clean();
+  player.body.head.hair.Clean();
+
+  player.body.breasts[0].coating = {};
+}
 
