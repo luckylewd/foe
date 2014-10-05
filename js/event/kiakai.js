@@ -233,6 +233,22 @@ Kiakai.prototype.Interact = function(switchSpot) {
 			tooltip : Text.Parse("Proposition to have sex with [name].", parse)
 		});
 	}
+	options.push({ nameStr: "Clean",
+		func : function() {
+			Text.Clear();
+			Text.AddOutput("[Placeholder]");
+			
+			world.TimeStep({minute : 10});
+
+			that.Clean();
+			
+			Gui.NextPrompt(function() {
+				that.Interact(switchSpot);
+			});
+		}, enabled : true,
+		tooltip : "Clean up."
+	});
+
 	//Equip, stats, job, switch
 	that.InteractDefault(options, switchSpot, true, true, true, true);
 	

@@ -23,24 +23,66 @@ Fluid.prototype.CoatedDesc = function () {
 	return qtyDescriptor + " with " + name;
 }
 
+// combines the second fluid into the first
+// assumes they are the same type
+Fluid.prototype.Combine = function (fluid) {
+	this.qty += fluid.qty;
+}
+
 function FluidFelineCum(qty) {
-	Fluid.call(this, "cat cum", qty);
+	Fluid.call(this, "wildcat cum", qty);
 }
-function FluidRabbitCum(qty) {
-	Fluid.call(this, "rabbit cum", qty);
+FluidFelineCum.prototype = new Fluid();
+
+function FluidPumaCum(qty) {
+	Fluid.call(this, "puma cum", qty);
 }
+FluidPumaCum.prototype = new Fluid();
+
+function FluidJaguarCum(qty) {
+	Fluid.call(this, "jaguar cum", qty);
+}
+FluidJaguarCum.prototype = new Fluid();
+
+function FluidLynxCum(qty) {
+	Fluid.call(this, "lynx cum", qty);
+}
+FluidLynxCum.prototype = new Fluid();
+
+function FluidLionCum(qty) {
+	Fluid.call(this, "lion cum", qty);
+}
+FluidLionCum.prototype = new Fluid();
+
+function FluidLagomorphCum(qty) {
+	Fluid.call(this, "lagomorph cum", qty);
+}
+FluidLagomorphCum.prototype = new Fluid();
+
+function FluidEquineCum(qty) {
+	Fluid.call(this, "equine cum", qty);
+}
+FluidEquineCum.prototype = new Fluid();
+
 function FluidVagCum(qty) {
 	Fluid.call(this, "vag cum", qty);
 }
+FluidVagCum.prototype = new Fluid();
+
 function FluidCockCum(qty) {
 	Fluid.call(this, "human cum", qty);
 }
+FluidCockCum.prototype = new Fluid();
+
 function FluidMilk(qty) {
 	Fluid.call(this, "milk", qty);
 }
+FluidMilk.prototype = new Fluid();
+
 function FluidBlood(qty) {
 	Fluid.call(this, "blood", qty);
 }
+FluidBlood.prototype = new Fluid();
 
 // TODO
 Fluid.prototype.ToStorage = function(storage) {

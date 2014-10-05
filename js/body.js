@@ -254,18 +254,19 @@ function BodyPart(race, color) {
 	this.color = color;
 
 	// coating
-	// Object to store the name of the coating, eg mud/cum/blood
-	this.coating = {}
-	// Is the bodypart external
-	this.external = false;
+	// object to store fluids coating body part
+	this.coating = {};
 }
 
 // Adds a coating to the body part
-BodyPart.prototype.AddCoating = function(name, qty) {
-  if(!this.coating[name]) {
-    this.coating[name] = 0;
+BodyPart.prototype.AddCoating = function(fluid) {
+  // if this fluid isn't on the body part yet
+  if(!this.coating[fluid.name]) {
+    this.coating[fluid.name] = new Fluid(fluid.name, fluid.qty);
+  } else {
+    // otherwise, combine the two fluids
+    this.coating[fluid.name].Combine(fluid);
   }
-  this.coating[name] += qty;
 }
 BodyPart.prototype.CoatingDesc = function() {
   var names = []
@@ -1027,14 +1028,6 @@ function Butt() {
 }
 
 Butt.prototype = new BodyPart();
-
-Butt.prototype.Clean = function() {
-  for(var cumtype in this.cumfilled) {
-    if(this.cumfilled.hasOwnProperty(cumtype)) {
-      this.cumfilled[cumtype] = 0;
-    }
-  }
-}
 
 Butt.prototype.Pregnant = function() {
 	return this.womb.pregnant;

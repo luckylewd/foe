@@ -67,6 +67,8 @@ function Equine(gender) {
 	// Set hp and mana to full
 	this.SetLevelBonus();
 	this.RestFull();
+
+	this.body.balls.CumType = FluidEquineCum;
 }
 Equine.prototype = new Entity();
 Equine.prototype.constructor = Equine;
@@ -429,6 +431,8 @@ Scenes.Equine.GetFucked = function(enc) {
 		Text.AddOutput("Your own mouth works quite well, licking at his sides while jerking the boy off. Even feeling a little generous, you suckle on his sack, fitting one testicle into your mouth and shining it with your tongue. He presses the long, shaft-like muscle into your [vagDesc], his fingers rapidly rubbing your [clitDesc].", parse);
 		Text.Newline();
 		Text.AddOutput("Failing miserably at holding up to his methods, you cry out as your [vagDesc] clamps against his tongue, shooting girl-cum onto his muzzle. You swallow his tip and a few inches beyond that, furiously jerking the rest of his horse cock. Feeling the release come through the large rod, cum floods your mouth. At first, you try to gulp down his slightly sweet release, but it comes far too quick for that. You release his cock from your lips and the shaft shoots several ropes onto your [faceDesc] and chest. The immediate aftermath of your climax only makes you lustfully open your mouth for the falling seed.", parse);
+		player.body.head.AddCoating(enc.stallion.GetCum(20));
+		player.body.breasts[0].AddCoating(enc.stallion.GetCum(20));
 		Text.Newline();
 		Text.AddOutput("After a minute or so, you and the equine lazily get to your feet, clean up, dress, and head your different paths. When you pay more attention, you notice that the mare seems to be gone.", parse);
 		if(!party.Alone())
@@ -552,7 +556,9 @@ Scenes.Equine.Threesome2 = function(enc) {
 	Text.AddOutput("With the meticulous pleasure centered on the female it'd be foolish to think she could last very long. She clamps down around the bestial shaft inside of her, squirting cum over you and the stallion. You give a few triumphant rubs to her sensitive bud and remove your saliva covered fingers from her mouth.", parse);
 	Text.Newline();
 	Text.AddOutput("The stallion suddenly pulls out of the mare and for a moment you are unsure of what he's doing. Before you think of pushing the mare out of the way, you feel a cool shot hit your sore slit and several more following up. The stallion softly stroked himself to orgasm over both of your pussies, covering both in his potent seed. You and the mare have the same idea, and begin stuffing the semen into each other's cunts.", parse);
-	player.CumInVag(player.FirstVag(), enc.stallion.FirstCock(), 5);
+	player.CumInVag(player.FirstVag(), enc.stallion.FirstCock(), enc.stallion.Balls(), 10);
+	player.body.ass.AddCoating(enc.stallion.GetCum(5));
+	player.body.legs.AddCoating(enc.stallion.GetCum(5));
 	Text.Newline();
 	Text.AddOutput("Despite having quite a fun time, you and the equines part ways.", parse);
 	if(!party.Alone())
