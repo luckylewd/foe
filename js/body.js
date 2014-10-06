@@ -873,7 +873,7 @@ function Vagina() {
 	
 	this.virgin        = true;
 
-	this.cumfilled	   = {};
+	this.cumfilled	   = new Mixture();
 }
 Vagina.prototype.Pregnant = function() {
 	return this.womb.pregnant;

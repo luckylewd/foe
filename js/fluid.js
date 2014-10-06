@@ -6,21 +6,91 @@ function Fluid(name, qty) {
 	this.name      = name;
 	this.qty       = qty;
 }
-Fluid.prototype.CoatedDesc = function () {
+
+function Mixture() {
+	this.composition = [];
+}
+Mixture.prototype.Combine = function (fluid) {
+	// does the fluid already exist in the mixture?
+	for(var i = 0; i < this.composition.length; i++) {
+	  if(this.composition[i].name === fluid.name) {
+	    this.composition[i].qty += fluid.qty;
+	    return;
+	  }
+	}
+
+	// otherwise
+	this.composition.push(fluid);
+}
+Mixture.prototype.Qty = function () {
+	var qty = 0;
+	for(var i = 0; i < this.composition.length; i++) {
+	  qty += this.composition[i].qty;
+	}
+	return qty;
+}
+Mixture.prototype.Desc = function () {
+	var names = [];
+	var liquidDesc = "";
+	for(var i = 0; i < this.composition.length; i++) {
+	  names.push(this.composition[i].name);
+	}
+
+	if(names.length === 0) {
+	  liquidDesc = "nothing";
+	}
+	if(names.length === 1) {
+	  liquidDesc = names[0];
+	}
+	if(names.length === 2) {
+	  liquidDesc = "mixture of " + names[0] + " and " + names[1];
+	}
+	if(names.length > 2) {
+	  liquidDesc += "mixture of ";
+	  for(var ni = 0; ni < names.length - 2; ni += 1) {
+	    liquidDesc += names[ni] + ", ";
+	  }
+	  liquidDesc += names[names.length - 2] + " and " + names[names.length - 1];
+	}
+
+	return liquidDesc;
+}
+
+// x is [coated] with
+Mixture.prototype.QtyCoatedDesc = function () {
 	var qtyDescriptor = "";
-	if(this.qty > 0 && this.qty < 10) {
+	if(this.Qty() > 0 && this.Qty() < 10) {
 	  qtyDescriptor = "spattered";
 	}
-	if(this.qty >= 10 && this.qty < 20) {
+	if(this.Qty() >= 10 && this.Qty() < 20) {
 	  qtyDescriptor = "glistening";
 	}
-	if(this.qty >= 20 && this.qty < 30) {
+	if(this.Qty() >= 20 && this.Qty() < 30) {
 	  qtyDescriptor = "coated";
 	}
-	if(this.qty >= 30) {
+	if(this.Qty() >= 30) {
 	  qtyDescriptor = "dripping";
 	}
-	return qtyDescriptor + " with " + name;
+	return qtyDescriptor;
+}
+
+// leaving a [splash] of x
+// you see a [splash] of x
+Mixture.prototype.QtyPoolDesc = function () {
+	var qtyDescriptor = "";
+	if(this.Qty() > 0 && this.Qty() < 10) {
+	  qtyDescriptor = "drop";
+	}
+	if(this.Qty() >= 10 && this.Qty() < 20) {
+	  qtyDescriptor = "splash";
+	}
+	if(this.Qty() >= 20 && this.Qty() < 30) {
+	  qtyDescriptor = "puddle";
+	}
+	if(this.Qty() >= 30) {
+	  qtyDescriptor = "pool";
+	}
+	return qtyDescriptor;
 }
 
 // combines the second fluid into the first
