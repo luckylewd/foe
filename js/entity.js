@@ -39,6 +39,29 @@ Stat.prototype.IdealStat = function(ideal, maxChange, fraction) {
 	else
 		return Math.floor(this.base) - Math.floor(old);
 }
+
+// Changes _ONE_ stat, closing in on the ideal (ONLY INC)
+// Cap the change to a maximum value
+// Returns the applied difference (positive), unless the diff is zero
+Stat.prototype.IncreaseStatFractional = function(ideal, fraction) {
+	ideal = ideal || 0;
+	fraction = fraction || 0.5;
+	console.log(ideal, fraction);
+	var diff = ideal - this.base;
+	if(diff <= 0) return 0;
+	diff *= fraction;
+	
+	var old = this.base;
+	this.base += diff;
+	console.log("stretch", diff);
+	if(DEBUG && this.debug) {
+		Text.Newline();
+		Text.AddOutput(Text.BoldColor("DEBUG: " + this.debug() + " " + old + " -> " + this.base + " (max: " + ideal + ")", "blue"));
+		Text.Newline();
+	}
+	return diff;
+}
+
 // Changes _ONE_ stat, closing in on the ideal (ONLY INC)
 // Cap the change to a maximum value
 // Returns the applied difference (positive), unless the diff is zero
@@ -1265,8 +1288,7 @@ Entity.prototype.HandleCumLeaking = function(hours) {
 
 		// post text
 		if(this.IsAtLocation(party.location)) {
-		  // display notification about once every 4 hours of interaction
-		  if(Math.random()*hours > 1) {
+		  if(Math.random() > 0.75) {
 		    Text.NL();
 		    Text.Add(this.name + " shifts uncomfortably.");
 		    Text.Flush();
@@ -1577,6 +1599,27 @@ Entity.prototype.FuckAnal = function(butt, cock, expMult) {
 		this.AddSexExp(expMult);
 	
 	// TODO: Stretch
+	if(cock) {
+	  // TODO: Stretch
+	  console.log(butt, cock);
+	  if (butt.stretch.Get() < cock.thickness.Get()) {
+	    var diff = butt.stretch.IncreaseStatFractional(cock.thickness.base, 0.25);
+
+	    // painful stretching
+	    if (diff >= 1) {
+	      Text.NL();
+	      Text.Add(this.Possessive() + " " + butt.AnalDesc().adj + " " + butt.analNoun() + " stretches painfully wide.");
+	      Text.NL();
+	      var blood = new FluidBlood(10);
+	      if (!butt.cumfilled[blood.name]) {
+		butt.cumfilled[blood.name] = blood;
+	      } else {
+		butt.cumfilled[blood.name].Combine(blood);
+	      }
+	    }
+	  }
+	}
+
 }
 
 // Fuck entitys vagina (vag, cock)
@@ -1593,7 +1636,27 @@ Entity.prototype.FuckVag = function(vag, cock, expMult) {
 	else
 		this.AddSexExp(expMult);
 
-	// TODO: Stretch
+	if(cock) {
+	  // TODO: Stretch
+	  console.log(vag, cock);
+	  if (vag.stretch.Get() < cock.thickness.Get()) {
+	    var diff = vag.stretch.IncreaseStatFractional(cock.thickness.base, 0.25);
+
+	    // painful stretching
+	    if (diff >= 1) {
+	      Text.NL();
+	      Text.Add(this.Possessive() + " " + vag.Desc() + " stretches painfully wide.");
+	      Text.NL();
+	      var blood = new FluidBlood(10);
+	      if (!vag.cumfilled[blood.name]) {
+		vag.cumfilled[blood.name] = blood;
+	      } else {
+		vag.cumfilled[blood.name].Combine(blood);
+	      }
+	    }
+	    
+	  }
+	}
 }
 
 // store cummed qty in vag

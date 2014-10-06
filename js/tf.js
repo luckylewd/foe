@@ -891,3 +891,82 @@ TF.ItemEffects.DecCha = function(target, opts) {
 	}
 	Text.Flush();
 }
+
+TF.ItemEffects.CleanVag = function(target, opts) {
+  var vag = target.FirstVag();
+  if(vag) {
+    var names = ["water"];
+    var liquidDesc = "";
+    for(var name in vag.cumfilled) {
+      if(vag.cumfilled.hasOwnProperty(name)) {
+	names.push(name);
+      }
+    }
+
+    if(names.length === 0) {
+      liquidDesc = "";
+    }
+    if(names.length === 1) {
+      liquidDesc = names[0];
+    }
+    if(names.length === 2) {
+      liquidDesc = "mixture of " + names[0] + " and " + names[1];
+    }
+    if(names.length > 2) {
+      liquidDesc += "mixture of ";
+      for(var ni = 0; ni < names.length - 2; ni += 1) {
+	liquidDesc += names[ni] + ", ";
+      }
+      liquidDesc += names[names.length - 2] + " and " + names[names.length - 1];
+    }
+    var parse = {
+      You: target === player ? "You" : target.NameDesc(),
+      your: target === player ? "your" : target.hisher(),
+      s: target === player ? "" : "s"
+    }
+    world.TimeStep({minute: 10});
+    Text.Add("[You] squat[s] on the ground before inserting the douche into [your] " + vag.Desc().adj + " " + vag.noun() + " and squeeze[s]. The " + liquidDesc + " flows from [your] " + vag.noun() + " forming a pool between [your] ankles.", parse);
+    Text.NL();
+    Text.Flush();
+
+    target.body.vagina[0].cumfilled = {};
+  }
+}
+TF.ItemEffects.CleanAss = function(target, opts) {
+  var ass = target.body.ass;
+  var names = ["water"];
+  var liquidDesc = "";
+  for(var name in ass.cumfilled) {
+    if(ass.cumfilled.hasOwnProperty(name)) {
+      names.push(name);
+    }
+  }
+
+  if(names.length === 0) {
+    liquidDesc = "";
+  }
+  if(names.length === 1) {
+    liquidDesc = names[0];
+  }
+  if(names.length === 2) {
+    liquidDesc = "mixture of " + names[0] + " and " + names[1];
+  }
+  if(names.length > 2) {
+    liquidDesc += "mixture of ";
+    for(var ni = 0; ni < names.length - 2; ni += 1) {
+      liquidDesc += names[ni] + ", ";
+    }
+    liquidDesc += names[names.length - 2] + " and " + names[names.length - 1];
+  }
+  var parse = {
+    You: target === player ? "You" : target.NameDesc(),
+    your: target === player ? "your" : target.hisher(),
+    s: target === player ? "" : "s"
+  }
+  world.TimeStep({minute: 10}); 
+  Text.Add("[You] squat[s] on the ground before inserting the enema into [your] " + ass.AnalDesc().adj + " " + ass.analNoun() + " and squeeze[s]. [You] hold the liquid for a couple minutes then release, a " + liquidDesc + " flows from [your] " + ass.analNoun() + " forming a pool between [your] ankles.", parse);
+  Text.NL();
+  Text.Flush();
+
+  target.body.ass.cumfilled = {};
+}

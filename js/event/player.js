@@ -142,18 +142,18 @@ Player.prototype.HandleCumLeaking = function(hours) {
 	  var option = Math.ceil(Math.random() * 7);
 	  switch (option) {
 	    case 1:
-	      Text.Add(type + " dribbles from your " + vagDesc.adj + " " + vag.noun() + ", your face flushes.");
+	      Text.Add(type + " dribbles from your " + vagDesc.adj + " " + vag.noun() + ", your face flushes. ");
 	      break;
 	    case 2:
 	      if(this.LowerArmor()) {
-		Text.Add("You shift uncomforably as the " + type + " leaks from your " + vagDesc.adj + " " + vag.noun() + ", soaking your " + this.LowerArmorDescLong() + ".");
+		Text.Add("You shift uncomforably as the " + type + " leaks from your " + vagDesc.adj + " " + vag.noun() + ", soaking your " + this.LowerArmorDescLong() + ". ");
 	      } else {
-		Text.Add("You suddenly feel a trickle and instinctively grab your " + vagDesc.adj + " " + vag.noun() + " in a vain attempt to prevent the thick streams of " + type + " running down your thighs.");
+		Text.Add("You suddenly feel a trickle and instinctively grab your " + vagDesc.adj + " " + vag.noun() + " in a vain attempt to prevent the thick streams of " + type + " running down your thighs. ");
 		this.body.legs.AddCoating(new Fluid(vag.cumfilled[type].name, hours));
 	      }
 	      break;
 	    case 3:
-	      Text.Add("You shift your weight and the " + type + " gushes from your " + vagDesc.adj + " " + vag.noun() + " leaving a trail down your legs.");
+	      Text.Add("You shift your weight and the " + type + " gushes from your " + vagDesc.adj + " " + vag.noun() + " leaving a trail down your legs. ");
 	      this.body.legs.AddCoating(new Fluid(vag.cumfilled[type].name, hours));
 	      break;
 	    case 4:

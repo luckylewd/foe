@@ -484,6 +484,20 @@ Items.Testos.PushEffect(function(target) {
 	}
 });
 
+Items.Douche = new TFItem("cle0", "Douche");
+Items.Douche.price = 10;
+Items.Douche.lDesc = function() { return "a douche"; }
+Items.Douche.Short = function() { return "A douche"; }
+Items.Douche.Long = function() { return "A bottle of douche."; }
+Items.Douche.PushEffect(TF.ItemEffects.CleanVag);
+
+Items.Enema = new TFItem("cle1", "Enema");
+Items.Enema.price = 10;
+Items.Enema.lDesc = function() { return "an enema"; }
+Items.Enema.Short = function() { return "An enema"; }
+Items.Enema.Long = function() { return "An enema."; }
+Items.Enema.PushEffect(TF.ItemEffects.CleanAss);
+
 Items.Estros = new TFItem("sex3", "Estros");
 Items.Estros.price = 100;
 Items.Estros.lDesc = function() { return "a bottle of Estros"; }

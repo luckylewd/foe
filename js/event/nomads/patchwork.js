@@ -12,6 +12,8 @@ function Patchwork(storage) {
 	 */
 	this.Shop = new Shop();
 	this.Shop.AddItem(Items.Equinium, 5);
+	this.Shop.AddItem(Items.Enema, 5);
+	this.Shop.AddItem(Items.Douche, 5);
 	//this.Shop.AddItem(Items.HorseHair, 5);
 	this.Shop.AddItem(Items.HorseShoe, 5);
 	//this.Shop.AddItem(Items.HorseCum, 5);

@@ -3125,6 +3125,7 @@ Scenes.Cale.SexCatchAnalEntrypoint = function(outside, fromVag) {
 				Text.NL();
 				
 				var cum = player.OrgasmCum();
+				player.CumInAss(player.FirstVag(), cale.FirstCock(), cale.Balls(), 20);
 				
 				Text.Add("Even as Cale’s seed gushes inside of you, your own limit is reached and you cry out, echoing the wolf-morph’s howl of ecstasy as your own body quakes and shudders with orgasm.", parse);
 				if(player.FirstCock()) {
@@ -3181,6 +3182,8 @@ Scenes.Cale.SexCatchAnalEntrypoint = function(outside, fromVag) {
 					Text.Add(" Your neglected womanhood rains down juices, smearing your [thighsDesc] before splattering onto the earth below.", parse);
 				Text.NL();
 				Text.Add("Without his knot to hold the seed in, most of it wind up leaking around the seal of your ass, splattering your butt with white. Only when the jets are reduced to a trickle does Cale pull away, sputtering a couple weak ropes onto your [buttDesc]. <i>“Ah, that hit the spot. Too bad y’ wouldn’t let me tie,”</i> he says, panting as he sits down beside you and leans on the [log].", parse);
+				player.CumInAss(player.FirstVag(), cale.FirstCock(), cale.Balls(), 20);
+				player.body.ass.AddCoating(cale.GetCum(20));
 				Text.NL();
 				Text.Add("You simply pant, regaining your strength. Once you can move again, you gather your gear and thank Cale for the nice time, already absently looking for a place to properly clean yourself up.", parse);
 				Text.NL();
