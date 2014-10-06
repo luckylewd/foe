@@ -1073,6 +1073,7 @@ Scenes.Lagomorph.GroupWinOnPlainsGetFuckedM = function(enc, group) {
 	
 	Sex.Blowjob(player, male);
 	player.FuckOral(player.Mouth(), male.FirstCock(), 1);
+	player.CumInMouth(player.Stomach(), male.FirstCock(), male.Balls(), 20);
 	male.Fuck(male.FirstCock(), 1);
 	
 	if(comp) {
@@ -1218,6 +1219,7 @@ Scenes.Lagomorph.GroupWinOnPlainsGetFuckedM = function(enc, group) {
 			
 			Sex.Blowjob(kiakai, male);
 			kiakai.FuckOral(kiakai.Mouth(), male.FirstCock(), 2);
+			kiakai.CumInMouth(kiakai.Stomach(), male.FirstCock(), male.Balls(), 20);
 			male.Fuck(male.FirstCock(), 2);
 			
 			kiakai.body.ass.AddCoating(male.GetCum(20));

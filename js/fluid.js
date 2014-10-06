@@ -70,7 +70,7 @@ function FluidVagCum(qty) {
 FluidVagCum.prototype = new Fluid();
 
 function FluidCockCum(qty) {
-	Fluid.call(this, "human cum", qty);
+	Fluid.call(this, "cum", qty);
 }
 FluidCockCum.prototype = new Fluid();
 

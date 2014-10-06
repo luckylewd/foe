@@ -1618,6 +1618,17 @@ Entity.prototype.CumInAss = function(butt, cock, balls, qty) {
   }
 }
 
+// store cummed qty in stomach
+Entity.prototype.CumInMouth = function(stomach, cock, balls, qty) {
+  var cum = new balls.CumType(qty);
+  Text.Add("Taking too much cum to bear, the rest dribbles from " + this.Possessive() + " mouth. ");
+
+  if (!stomach.filled[cum.name]) {
+    stomach.filled[cum.name] = cum;
+  } else {
+    stomach.filled[cum.name].Combine(cum);
+  }
+}
 
 /*
  * New Sex functions
@@ -2376,7 +2387,13 @@ Entity.prototype.PrintDescription = function() {
 	var ass = this.body.ass;
 	for(var cumtype in ass.cumfilled) {
 	  if(ass.cumfilled.hasOwnProperty(cumtype)) {
-	    fluidsum += ass.cumfilled[cumtype];
+	    fluidsum += ass.cumfilled[cumtype].qty;
+	  }
+	}
+	var stomach = this.body.stomach;
+	for(var cumtype in stomach.filled) {
+	  if(stomach.filled.hasOwnProperty(cumtype)) {
+	    fluidsum += stomach.filled[cumtype].qty;
 	  }
 	}
 
@@ -2617,3 +2634,6 @@ Entity.prototype.GetCum = function (qty) {
   return new this.body.balls.CumType(qty);
 }
 
+Entity.prototype.Stomach = function () {
+  return this.body.stomach;
+}

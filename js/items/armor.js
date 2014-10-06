@@ -72,3 +72,14 @@ Items.Armor.StylizedClothes.effect.defMod = 0;
 Items.Armor.StylizedClothes.effect.charisma = 1;
 Items.Armor.StylizedClothes.effect.libido = 1;
 
+Items.Armor.BlueRobes = new Item("robe1", "B.Robes");
+Items.Armor.BlueRobes.price = 140;
+Items.Armor.BlueRobes.sDesc = function() { return "light blue robes"; }
+Items.Armor.BlueRobes.lDesc = function() { return "light blue robes of soft cloth with short sleeves, ending just above the knees"; }
+Items.Armor.BlueRobes.Short = function() { return "Light blue robes"; }
+Items.Armor.BlueRobes.Long = function() { return "A light blue robe of soft cloth with short sleeves, ending just above the knees."; }
+Items.Armor.BlueRobes.EquipType = ItemType.FullArmor;
+Items.Armor.BlueRobes.effect.defMod = 0;
+Items.Armor.BlueRobes.effect.intelligence = 1;
+Items.Armor.BlueRobes.effect.spirit = 1;
+

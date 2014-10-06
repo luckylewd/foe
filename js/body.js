@@ -328,6 +328,8 @@ function Body(ent) {
 	}
 	this.head.mouth.prototype = new BodyPart();
 
+	this.stomach = new Stomach();
+
 	this.head.hair = new Hair();
 	this.head.eyes = new BodyPart();
 	this.head.eyes.count = new Stat(2);
@@ -848,6 +850,13 @@ Appendage.prototype.Long = function() {
 		}
 	}
 	else return "strange growth";
+}
+
+function Stomach() {
+	this.capacity      = new Stat(20);
+	this.stretch       = new Stat(1);
+	
+	this.filled	   = {};
 }
 
 function Vagina() {

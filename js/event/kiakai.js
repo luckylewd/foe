@@ -24,7 +24,7 @@ function Kiakai(storage) {
 	this.jobs["Healer"]    = new JobDesc(Jobs.Healer);
 	
 	this.weaponSlot   = Items.Weapons.WoodenStaff;
-	this.topArmorSlot = Items.Armor.SimpleRobes;
+	this.topArmorSlot = Items.Armor.BlueRobes;
 	
 	this.maxHp.base        = 80;
 	this.maxSp.base        = 50;
@@ -125,16 +125,6 @@ Kiakai.prototype.ItemUsable = function(item) {
 
 Kiakai.prototype.JobDesc = function() {
 	return "acolyte";
-}
-
-// TODO TEMP
-Kiakai.prototype.ArmorDescLong = function() {
-	return "a light blue robe of soft cloth with short sleeves, ending just above the knees";
-}
-
-// TODO TEMP
-Kiakai.prototype.ArmorDesc = function() {
-	return "light blue robe";
 }
 
 // Schedule
