@@ -978,8 +978,6 @@ Scenes.Lagomorph.GroupWinOnPlainsFuckM = function(enc, group) {
 		// COMPANION SECTION END
 		
 		Text.Add("Things start melding together as the entire group deteriorates into an all out orgy. You make sure to split your attentions between the various lagomorphs, but one quickly becomes interchangeable with the next, a huge pile of horny creatures eager to be your next target.", parse);
-					console.log('error');
-					console.log(male);
 		player.CumInVag(player.FirstVag(), male.FirstCock(), male.Balls(), 20);
 		Text.NL();
 		Text.Add("Time passes...", parse);
@@ -1101,8 +1099,6 @@ Scenes.Lagomorph.GroupWinOnPlainsGetFuckedM = function(enc, group) {
 	if(target == BodyPartType.vagina) {
 		Sex.Vaginal(male, player);
 		player.FuckVag(player.FirstVag(), male.FirstCock(), 3);
-					console.log('error');
-					console.log(male);
 		player.CumInVag(player.FirstVag(), male.FirstCock(), male.Balls(), 20);
 		male.Fuck(male.FirstCock(), 3);
 		
@@ -1141,8 +1137,6 @@ Scenes.Lagomorph.GroupWinOnPlainsGetFuckedM = function(enc, group) {
 	if(player.FirstVag()) {
 		Sex.Vaginal(male, player);
 		player.FuckVag(player.FirstVag(), male.FirstCock(), 2);
-					console.log('error');
-					console.log(male);
 		player.CumInVag(player.FirstVag(), male.FirstCock(), male.Balls(), 20);
 		male.Fuck(male.FirstCock(), 2);
 	}
