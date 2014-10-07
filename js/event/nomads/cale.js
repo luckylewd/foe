@@ -87,6 +87,7 @@ function Cale(storage) {
 	else {
 		this.Butt().capacity.base = 35;
 	}
+	this.Balls().CumType = FluidCaleCum;
 }
 Cale.prototype = new Entity();
 Cale.prototype.constructor = Cale;

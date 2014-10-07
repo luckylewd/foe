@@ -147,12 +147,12 @@ Player.prototype.HandleCumLeaking = function(hours) {
 	    Text.Add("You shift uncomforably as the " + type + " leaks from your " + vagDesc.adj + " " + vag.noun() + ", soaking your " + this.LowerArmorDescLong() + ". ");
 	  } else {
 	    Text.Add("You suddenly feel a trickle and instinctively grab your " + vagDesc.adj + " " + vag.noun() + " in a vain attempt to prevent the thick streams of " + type + " running down your thighs. ");
-	    if(this.body.legs.count) { this.body.legs.AddCoating(newMixV); }
+	    this.body.legs.AddCoating(newMixV); 
 	  }
 	  break;
 	case 3:
 	  Text.Add("You shift your weight and the " + type + " gushes from your " + vagDesc.adj + " " + vag.noun() + " leaving a trail down your legs. ");
-	  if(this.body.legs.count) { this.body.legs.AddCoating(newMixV); }
+	  this.body.legs.AddCoating(newMixV);
 	  break;
 	case 4:
 	case 5:

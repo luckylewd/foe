@@ -921,12 +921,12 @@ Scenes.Rosalin.FirstFuck = function() {
 					if(targetType == BodyPartType.ass) {
 						Sex.Anal(cale, player);
 						player.FuckAnal(target, cale.FirstCock(), 3);
-						player.CumInAss(target, cale.FirstCock(), 10);
+						player.CumInAss(target, cale.FirstCock(), cale.Balls(), 10);
 					}
 					else {
 						Sex.Vaginal(cale, player);
 						player.FuckVag(target, cale.FirstCock(), 3);
-						player.CumInVag(target, cale.FirstCock(), 10);
+						player.CumInVag(target, cale.FirstCock(), cale.Balls(), 10);
 					}
 					
 					Text.Add("<i>“Ah... not bad,”</i> the wolf sighs, repeatedly pounding your [targetDesc], trying to build a rhythm. Being so close to the edge already pushes his instincts to the forefront, and soon you feel an even thicker mass press against your [targetDesc]. <i>“Gonna breed you, little slut,”</i> he hisses into your ear as his knot forces it's way inside your [targetDesc]", parse);

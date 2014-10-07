@@ -181,6 +181,12 @@ function FluidEquineCum(qty) {
 }
 FluidEquineCum.prototype = new Fluid();
 
+function FluidCaleCum(qty) {
+	Fluid.call(this, "cale cum", qty);
+}
+FluidCaleCum.prototype = new Fluid();
+
+
 function FluidVagCum(qty) {
 	Fluid.call(this, "vag cum", qty);
 }
