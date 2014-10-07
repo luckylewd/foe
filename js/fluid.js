@@ -22,6 +22,53 @@ Mixture.prototype.Combine = function (fluid) {
 	// otherwise
 	this.composition.push(fluid);
 }
+
+Mixture.prototype.Mix = function (mix) {
+	// iterate though base fluids in mix
+	for(var i = 0; i < mix.composition.length; i++) {
+	  // mix them in
+	  this.Combine(mix.composition[i]);
+	}
+}
+
+// removes an absolute qty of the mixture and returns it
+Mixture.prototype.SplitAbs = function (qtyRemoved) {
+	var newMix = new Mixture();
+	var totalQty = this.Qty();
+	var totalSplitFlag = false;
+
+	// if we try and remove more than there is
+	if(qtyRemoved > totalQty) {
+	  qtyRemoved = totalQty;
+	  totalSplitFlag = true;
+	}
+
+	for(var i = 0; i < this.composition.length; i++) {
+	  // store the current fluid
+	  var thisFluid = this.composition[i];
+	  // copy current fluid so we can modify it
+	  var newFluid = $.extend({}, thisFluid);
+
+	  // get proportion of total this fluid is
+	  var proportion = thisFluid.qty / totalQty;
+	  // set the new fluid qty to the portion removed from old fluid
+	  newFluid.qty = proportion * qtyRemoved;
+	  // subtract the removed fluid from the old fluid
+	  thisFluid.qty -= newFluid.qty;
+
+	  // add the new fluid into our new mixture
+	  newMix.Combine(newFluid);
+	}
+
+	// if we try and remove more than there is
+	// remove everything from old Mixture to prevent small float values
+	if(totalSplitFlag) {
+	  this.composition = [];
+	}
+
+	return newMix;
+}
+
 Mixture.prototype.Qty = function () {
 	var qty = 0;
 	for(var i = 0; i < this.composition.length; i++) {
@@ -43,10 +90,10 @@ Mixture.prototype.Desc = function () {
 	  liquidDesc = names[0];
 	}
 	if(names.length === 2) {
-	  liquidDesc = "mixture of " + names[0] + " and " + names[1];
+	  liquidDesc = "" + names[0] + " and " + names[1];
 	}
 	if(names.length > 2) {
-	  liquidDesc += "mixture of ";
+	  liquidDesc += "";
 	  for(var ni = 0; ni < names.length - 2; ni += 1) {
 	    liquidDesc += names[ni] + ", ";
 	  }
@@ -57,19 +104,19 @@ Mixture.prototype.Desc = function () {
 }
 
 // x is [coated] with
-Mixture.prototype.QtyCoatedDesc = function () {
+Mixture.prototype.QtyCoatingDesc = function () {
 	var qtyDescriptor = "";
 	if(this.Qty() > 0 && this.Qty() < 10) {
-	  qtyDescriptor = "spattered";
+	  qtyDescriptor = randomChoice(["spattered", "speckled", "trickled"]);
 	}
 	if(this.Qty() >= 10 && this.Qty() < 20) {
-	  qtyDescriptor = "glistening";
+	  qtyDescriptor = randomChoice(["glistening", "slick", "glazed"]);
 	}
 	if(this.Qty() >= 20 && this.Qty() < 30) {
-	  qtyDescriptor = "coated";
+	  qtyDescriptor = randomChoice(["coated", "covered", "wet"]);
 	}
 	if(this.Qty() >= 30) {
-	  qtyDescriptor = "dripping";
+	  qtyDescriptor = randomChoice(["dripping", "bathed", "sopping", "soaked"]);
 	}
 	return qtyDescriptor;
 }
@@ -153,6 +200,11 @@ function FluidBlood(qty) {
 	Fluid.call(this, "blood", qty);
 }
 FluidBlood.prototype = new Fluid();
+function FluidWater(qty) {
+	Fluid.call(this, "water", qty);
+}
+FluidWater.prototype = new Fluid();
+
 
 // TODO
 Fluid.prototype.ToStorage = function(storage) {

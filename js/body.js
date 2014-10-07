@@ -255,42 +255,34 @@ function BodyPart(race, color) {
 
 	// coating
 	// object to store fluids coating body part
-	this.coating = {};
+	this.coating = new Mixture();
 }
 
 // Adds a coating to the body part
 BodyPart.prototype.AddCoating = function(fluid) {
-  // if this fluid isn't on the body part yet
-  if(!this.coating[fluid.name]) {
-    this.coating[fluid.name] = new Fluid(fluid.name, fluid.qty);
+  // randomize amount of fluid hitting surface
+  // will be between -0% & -25% of 1
+  var randomModifier = 1 - Math.random()/4;
+
+  // if the passed in argument is a mixture
+  if(fluid.composition) {
+    // remove random amount of fluid
+    fluid.SplitAbs(1 - (fluid.Qty() * randomModifier));
+    // mix together mixtures
+    this.coating.Mix(fluid);
   } else {
-    // otherwise, combine the two fluids
-    this.coating[fluid.name].Combine(fluid);
+    // remove random amount of fluid
+    fluid.qty *= randomModifier;
+    // mix in fluids
+    this.coating.Combine(fluid);
   }
 }
 BodyPart.prototype.CoatingDesc = function() {
-  var names = []
-  for(var name in this.coating) {
-    if(this.coating.hasOwnProperty(name)) {
-      names.push(name);
-    }
-  }
-
-  if(names.length === 0) {
-    return "";
-  }
-  if(names.length === 1) {
-    return names[0];
-  }
-  if(names.length === 2) {
-    return "mixture of " + names[0] + " and " + names[1];
-  }
-
-  return ""
+  return this.coating.QtyCoatingDesc() + " with " + this.coating.Desc();
 }
 
 BodyPart.prototype.Clean = function() {
-  this.coating = {};
+  this.coating = new Mixture();
 }
 
 BodyPartType = {
@@ -856,7 +848,7 @@ function Stomach() {
 	this.capacity      = new Stat(20);
 	this.stretch       = new Stat(1);
 	
-	this.filled	   = {};
+	this.filled	   = new Mixture();
 }
 
 function Vagina() {
@@ -873,7 +865,7 @@ function Vagina() {
 	
 	this.virgin        = true;
 
-	this.cumfilled	   = new Mixture();
+	this.filled	   = new Mixture();
 }
 Vagina.prototype.Pregnant = function() {
 	return this.womb.pregnant;
@@ -882,14 +874,6 @@ Vagina.prototype.Pregnant = function() {
 Vagina.prototype.Fits = function(cock, extension) {
 	extension = extension || 0;
 	return cock.length.Get() <= (this.capacity.Get() + extension);
-}
-
-Vagina.prototype.Clean = function() {
-  for(var cumtype in this.cumfilled) {
-    if(this.cumfilled.hasOwnProperty(cumtype)) {
-      this.cumfilled[cumtype] = 0;
-    }
-  }
 }
 
 // Create a clitcock from a vagina
@@ -1033,7 +1017,7 @@ function Butt() {
 	
 	this.virgin   = true;
 
-	this.cumfilled	   = {};
+	this.filled   = new Mixture();
 }
 
 Butt.prototype = new BodyPart();

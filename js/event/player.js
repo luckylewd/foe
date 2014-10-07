@@ -130,68 +130,54 @@ Player.prototype.HandleCumLeaking = function(hours) {
   for(var i=0; i < this.body.vagina.length; i++) {
     var vag = this.body.vagina[i];
 
-    //for each type of cum in vagina
-    for(var type in vag.cumfilled) {
-      if(vag.cumfilled.hasOwnProperty(type)) {
-	//if cum exists, decrease it
-	if (vag.cumfilled[type].qty > 0) {
-	  vag.cumfilled[type].qty -= hours; 
+    //if cum exists, decrease it
+    if (vag.filled.Qty() > 0) {
+      var newMixV = vag.filled.SplitAbs(hours); 
+      type = newMixV.Desc();
 
-	  var vagDesc = vag.Desc();
-	  Text.NL();
-	  var option = Math.ceil(Math.random() * 7);
-	  switch (option) {
-	    case 1:
-	      Text.Add(type + " dribbles from your " + vagDesc.adj + " " + vag.noun() + ", your face flushes. ");
-	      break;
-	    case 2:
-	      if(this.LowerArmor()) {
-		Text.Add("You shift uncomforably as the " + type + " leaks from your " + vagDesc.adj + " " + vag.noun() + ", soaking your " + this.LowerArmorDescLong() + ". ");
-	      } else {
-		Text.Add("You suddenly feel a trickle and instinctively grab your " + vagDesc.adj + " " + vag.noun() + " in a vain attempt to prevent the thick streams of " + type + " running down your thighs. ");
-		this.body.legs.AddCoating(new Fluid(vag.cumfilled[type].name, hours));
-	      }
-	      break;
-	    case 3:
-	      Text.Add("You shift your weight and the " + type + " gushes from your " + vagDesc.adj + " " + vag.noun() + " leaving a trail down your legs. ");
-	      this.body.legs.AddCoating(new Fluid(vag.cumfilled[type].name, hours));
-	      break;
-	    case 4:
-	    case 5:
-	    case 6:
-	    case 7:
-	      break;
+      var vagDesc = vag.Desc();
+      Text.NL();
+      var option = Math.ceil(Math.random() * 7);
+      switch (option) {
+	case 1:
+	  Text.Add(type + " dribbles from your " + vagDesc.adj + " " + vag.noun() + ", your face flushes. ");
+	  break;
+	case 2:
+	  if(this.LowerArmor()) {
+	    Text.Add("You shift uncomforably as the " + type + " leaks from your " + vagDesc.adj + " " + vag.noun() + ", soaking your " + this.LowerArmorDescLong() + ". ");
+	  } else {
+	    Text.Add("You suddenly feel a trickle and instinctively grab your " + vagDesc.adj + " " + vag.noun() + " in a vain attempt to prevent the thick streams of " + type + " running down your thighs. ");
+	    if(this.body.legs.count) { this.body.legs.AddCoating(newMixV); }
 	  }
-	  Text.Flush();
-	  this.AddLustAbs(hours);
-	} else {
-	  vag.cumfilled[type].qty = 0;
-	}
+	  break;
+	case 3:
+	  Text.Add("You shift your weight and the " + type + " gushes from your " + vagDesc.adj + " " + vag.noun() + " leaving a trail down your legs. ");
+	  if(this.body.legs.count) { this.body.legs.AddCoating(newMixV); }
+	  break;
+	case 4:
+	case 5:
+	case 6:
+	case 7:
+	  break;
       }
-    }
-
+      Text.Flush();
+      this.AddLustAbs(hours);
+    } 
   }
 
   var ass = this.body.ass;
 
-  //for each type of cum in ass
-  for(var type in ass.cumfilled) {
-    if(ass.cumfilled.hasOwnProperty(type)) {
-      //if cum exists, decrease it
-      if (ass.cumfilled[type].qty > 0) {
-	ass.cumfilled[type].qty -= hours; 
+  //if cum exists, decrease it
+  if (ass.filled.Qty() > 0) {
+    var newMixA = ass.filled.SplitAbs(hours); 
 
-	var assDesc = ass.AnalDesc();
-	//Text.NL();
-	//Text.Add("You feel something leaking from your " + assDesc.adj + " " + ass.analNoun() + ".");
-	//Text.Flush();
-	this.AddLustAbs(hours);
+    var assDesc = ass.AnalDesc();
+    //Text.NL();
+    //Text.Add("You feel something leaking from your " + assDesc.adj + " " + ass.analNoun() + ".");
+    //Text.Flush();
+    this.AddLustAbs(hours);
 
-      } else {
-	ass.cumfilled[type].qty = 0;
-      }
-    }
-  }
+  } 
 
 }
 

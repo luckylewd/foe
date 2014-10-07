@@ -143,3 +143,8 @@ GenerateFile = function(options) {
 		form.submit();
 	},50);
 };
+
+randomChoice = function(arr) {
+  var choice = Math.floor(Math.random() * arr.length);
+  return arr[choice];
+}
