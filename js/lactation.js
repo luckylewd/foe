@@ -64,8 +64,20 @@ LactationHandler.prototype.MilkCap = function() {
 //TODO
 LactationHandler.prototype.Update = function(hours) {
 	var inc = this.milkProduction.Get() * hours;
-	if(this.Lactation())
-		inc -= this.lactationRate.Get() * hours;
+	if(this.Lactation()) {
+		var dec = this.lactationRate.Get() * hours;
+		var body = this.entity.body;
+		inc -= dec;
+
+		// TODO: this is hack
+		var SCALE_FACTOR = 0.2
+
+		// track fluid
+		// TODO: make fluid entity specific
+		for(var i = 0; i < body.breasts.length; i++) {
+		  body.breasts[i].coating.Combine(new FluidMilk((dec / body.breasts.length) * SCALE_FACTOR));
+		}
+	}
 	
 	if(inc >= 0) {
 		this.milk.IncreaseStat(this.MilkCap(), inc, true);
@@ -73,6 +85,7 @@ LactationHandler.prototype.Update = function(hours) {
 	else {
 		this.milk.DecreaseStat(0, -inc);
 	}
+	console.log(this.milk.Get());
 	
 	if(this.Milk() >= this.MilkCap()) {
 		this.entity.MilkFull();
